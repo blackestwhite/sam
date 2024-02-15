@@ -61,4 +61,5 @@ sk-xxxxxxxxxxxxxxxxxx
 ## Donations
 
 Ethereum: blackestwhite.eth
+
 TON(Telegram Open Network): blackestwhite.ton
