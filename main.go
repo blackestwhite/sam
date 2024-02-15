@@ -62,7 +62,7 @@ func suggestCommit() {
 		Messages: []gopenai.Message{
 			gopenai.Message{
 				Role:    "system",
-				Content: "you are a AI in a cli tool. you should suggest commit message based on output of git diff with the following format: 'label: commit message' label should be from common labels like: fix, feat, chore, refactor and ..., and also don't be verbose your response should be a one line response that should be used directly in cli tool.",
+				Content: "you are an AI in a cli tool. you should suggest commit message based on output of git diff with the following format: 'label: commit message' label should be from common labels like: fix, feat, chore, refactor and ..., and also don't be verbose your response should be a one line response that should be used directly in cli tool.",
 			},
 			gopenai.Message{
 				Role:    "user",
