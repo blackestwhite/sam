@@ -58,7 +58,7 @@ func suggestCommit() {
 
 	res, err := instance.GenerateChatCompletion(gopenai.ChatCompletionRequestBody{
 		Stream: true,
-		Model:  "gpt-3.5-turbo",
+		Model:  "gpt-4",
 		Messages: []gopenai.Message{
 			{
 				Role:    "system",
