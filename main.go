@@ -13,7 +13,7 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: sam <command>")
+		printHelp()
 		return
 	}
 
@@ -22,8 +22,10 @@ func main() {
 	switch command {
 	case "commit":
 		suggestCommit()
+	case "help":
+		printHelp()
 	default:
-		fmt.Println("Invalid command. Available commands: commit")
+		fmt.Println("Invalid command. Use 'sam help' for usage information.")
 	}
 }
 
@@ -60,7 +62,7 @@ func suggestCommit() {
 		Messages: []gopenai.Message{
 			{
 				Role:    "system",
-				Content: "you are an AI in a cli tool. you should suggest commit message based on output of git diff with the following format: 'label: commit message' label should be from common labels like: fix, feat, chore, refactor and ..., and also don't be verbose your response should be a one line response that should be used directly in cli tool.",
+				Content: "you are an AI in a cli tool. you should suggest a commit message based on the output of `git diff` with the following format: 'label: commit message'. The label should be from common labels like: fix, feat, chore, refactor, etc., and also, don't be verbose. Your response should be a one-line message suitable for a commit message.",
 			},
 			{
 				Role:    "user",
@@ -78,4 +80,12 @@ func suggestCommit() {
 		txt += comp.Choices[0].Delta.Content
 	}
 	fmt.Println(txt)
+}
+
+func printHelp() {
+	fmt.Println("Usage: sam <command>")
+	fmt.Println()
+	fmt.Println("Commands:")
+	fmt.Println("  commit   Generate a commit message based on the changes in the repository")
+	fmt.Println("  help     Display this help message")
 }
