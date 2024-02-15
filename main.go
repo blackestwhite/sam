@@ -46,14 +46,12 @@ func suggestCommit() {
 
 	instance := gopenai.Setup(apiKey)
 
-	// Execute git diff command
 	diffCmd := exec.Command("git", "diff")
 	diffOutput, err := diffCmd.Output()
 	if err != nil {
 		log.Fatal("Error running git diff:", err)
 	}
 
-	// Convert output bytes to string
 	gitDiffOutput := string(diffOutput)
 
 	res, err := instance.GenerateChatCompletion(gopenai.ChatCompletionRequestBody{
