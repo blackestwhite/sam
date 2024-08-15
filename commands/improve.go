@@ -29,7 +29,7 @@ New Features:
 
 Be concise and focus on the most important suggestions.`
 
-	response, err := utils.GetOpenAIResponse(prompt, projectFiles, "gpt-4")
+	response, err := utils.GetOpenAIResponse(prompt, projectFiles, "gpt-4o-mini")
 	if err != nil {
 		log.Fatal("Error generating suggestions:", err)
 	}
