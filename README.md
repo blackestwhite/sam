@@ -1,6 +1,6 @@
 # SAM - AI CLI Tool
 
-SAM is a CLI tool that generates commit messages based on the changes in a Git repository using OpenAI's GPT-3 language model.
+SAM is a CLI tool that generates commit messages based on the changes in a Git repository using OpenAI's GPT-4o-mini language model.
 
 ## Installation
 
