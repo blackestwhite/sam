@@ -46,6 +46,7 @@ sam <command>
 ### Available Commands
 
 - `commit`: Generates a commit message based on the changes in the Git repository.
+- `improve`: Suggest improvements, fix bugs, and propose new features for the project
 - `help`: Displays usage information.
 
 ## Configuration
@@ -55,7 +56,7 @@ SAM requires an API key from OpenAI to generate commit messages. Before using SA
 Example `.samrc` file:
 
 ```
-sk-xxxxxxxxxxxxxxxxxx
+OPENAI_API_KEY="sk-xxxxxxxxxxxxxxxxxx"
 ```
 
 ## Donations
