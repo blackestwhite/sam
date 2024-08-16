@@ -26,6 +26,13 @@ func main() {
 		commands.SuggestCommit()
 	case "improve":
 		commands.SuggestImprovements()
+	case "request":
+		if len(os.Args) < 3 {
+			fmt.Println("Error: No request provided. Usage: sam request <your_request>")
+			return
+		}
+		request := os.Args[2] // Capture the request from command-line arguments
+		commands.HandleRequest(request)
 	case "help":
 		printHelp()
 	default:
@@ -37,7 +44,8 @@ func printHelp() {
 	fmt.Println("Usage: sam <command>")
 	fmt.Println()
 	fmt.Println("Commands:")
-	fmt.Println("  commit   Generate a commit message based on the changes in the repository")
-	fmt.Println("  improve  Suggest improvements, fix bugs, and propose new features for the project")
+	fmt.Println("  commit   Generate a commit message based on changes in the repository")
+	fmt.Println("  improve  Suggest improvements and fixes for the project")
+	fmt.Println("  request   Handle specific requests based on project analysis for example: sam request \"how to add feature x\"")
 	fmt.Println("  help     Display this help message")
 }
