@@ -1,4 +1,4 @@
-github.com/blackestwhite/gopenai v0.0.0-20240101211747-e7f16c1a9ec5 h1:7nlFsulDDAi7+98DfbRo4lWEjFyI+TgrxOjxFOFQtv8=
-github.com/blackestwhite/gopenai v0.0.0-20240101211747-e7f16c1a9ec5/go.mod h1:tEbzYMKL/u83LbfFFiuqqJFDlZrrRV3EV2++HkaTuiw=
+github.com/blackestwhite/gopenai v0.0.0-20240816103236-d3b9863f3706 h1:8T1Qk2CneyshoyC1M0G9IqTjyGOGGJDM5XwSI4s+Qrg=
+github.com/blackestwhite/gopenai v0.0.0-20240816103236-d3b9863f3706/go.mod h1:pRsHXx7eHfEsaKjfqvUsiem9SrjaheD71EoBGtaOrvA=
 github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
 github.com/joho/godotenv v1.5.1/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=

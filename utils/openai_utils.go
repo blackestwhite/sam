@@ -27,10 +27,7 @@ func GetOpenAIResponse(prompt, content, model string) (string, error) {
 		return "", err
 	}
 
-	var response string
-	for comp := range res {
-		response += comp.Choices[0].Delta.Content
-	}
+	response := res.Choices[0].Message.Content
 
 	return response, nil
 }
