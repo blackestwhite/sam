@@ -23,16 +23,16 @@ SAM is a CLI tool that generates commit messages based on the changes in a Git r
    cd sam
    ```
 
-3. Build the SAM binary:
+3. Make installer executable
 
    ```bash
-   go build
+   chmod +x ./install.sh
    ```
 
-4. Move the SAM binary to a directory in your PATH (e.g., `/usr/local/bin`):
+4. Run installer
 
    ```bash
-   sudo mv sam /usr/local/bin
+   ./install.sh
    ```
 
 ## Usage
