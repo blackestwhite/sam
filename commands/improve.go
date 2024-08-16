@@ -13,7 +13,7 @@ func SuggestImprovements() {
 		log.Fatal("Error reading project files:", err)
 	}
 
-	prompt := `You are an AI assistant in a CLI tool. Analyze the provided project structure and file contents, then suggest improvements, bug fixes, tests, unit tests and new features. Format your response as follows:
+	prompt := `You are an AI assistant in a CLI tool. Analyze the provided project structure and file contents, then suggest improvements, bug fixes, tests, unit tests and new features. Format your response as follows(remember to mention which file/path should be worked on):
 
 Improvements:
 1. [Improvement suggestion]
