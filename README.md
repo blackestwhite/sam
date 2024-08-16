@@ -47,6 +47,7 @@ sam <command>
 
 - `commit`: Generates a commit message based on the changes in the Git repository.
 - `improve`: Suggest improvements, fix bugs, and propose new features for the project
+- `request`: Handle specific requests based on project analysis for example: `sam request "how to add feature x"`
 - `help`: Displays usage information.
 
 ## Configuration
