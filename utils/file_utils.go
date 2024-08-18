@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
 func GetProjectFiles() (string, error) {
-	ignoredPaths, err := getIgnoredPaths()
+	ignorePatterns, err := getIgnorePatterns()
 	if err != nil {
 		return "", err
 	}
@@ -20,11 +21,14 @@ func GetProjectFiles() (string, error) {
 			return err
 		}
 
-		if info.IsDir() && isIgnored(path, ignoredPaths) {
-			return filepath.SkipDir
+		if isIgnored(path, ignorePatterns) {
+			if info.IsDir() {
+				return filepath.SkipDir
+			}
+			return nil
 		}
 
-		if !info.IsDir() && !isIgnored(path, ignoredPaths) {
+		if !info.IsDir() {
 			content, err := os.ReadFile(path)
 			if err != nil {
 				return err
@@ -45,30 +49,60 @@ func GetProjectFiles() (string, error) {
 	return fileContents.String(), nil
 }
 
-func getIgnoredPaths() ([]string, error) {
+type IgnorePattern struct {
+	pattern string
+	isRegex bool
+}
+
+func getIgnorePatterns() ([]IgnorePattern, error) {
 	content, err := os.ReadFile(".samignore")
 	if err != nil {
 		if os.IsNotExist(err) {
-			return []string{}, nil
+			return []IgnorePattern{}, nil
 		}
 		return nil, err
 	}
 
 	lines := strings.Split(string(content), "\n")
-	var ignoredPaths []string
+	var ignorePatterns []IgnorePattern
 	for _, line := range lines {
 		if trimmed := strings.TrimSpace(line); trimmed != "" && !strings.HasPrefix(trimmed, "#") {
-			ignoredPaths = append(ignoredPaths, trimmed)
+			if strings.HasPrefix(trimmed, "/") && strings.HasSuffix(trimmed, "/") {
+				// It's a regex pattern
+				pattern := strings.Trim(trimmed, "/")
+				if _, err := regexp.Compile(pattern); err != nil {
+					return nil, fmt.Errorf("invalid regex in .samignore: %s", trimmed)
+				}
+				ignorePatterns = append(ignorePatterns, IgnorePattern{pattern: pattern, isRegex: true})
+			} else {
+				// It's a glob pattern
+				ignorePatterns = append(ignorePatterns, IgnorePattern{pattern: trimmed, isRegex: false})
+			}
 		}
 	}
 
-	return ignoredPaths, nil
+	return ignorePatterns, nil
 }
 
-func isIgnored(path string, ignoredPaths []string) bool {
-	for _, ignoredPath := range ignoredPaths {
-		if strings.HasPrefix(path, ignoredPath) {
-			return true
+func isIgnored(path string, ignorePatterns []IgnorePattern) bool {
+	for _, pattern := range ignorePatterns {
+		if pattern.isRegex {
+			if matched, _ := regexp.MatchString(pattern.pattern, path); matched {
+				return true
+			}
+		} else {
+			// Check if the pattern matches the full path
+			if matched, _ := filepath.Match(pattern.pattern, path); matched {
+				return true
+			}
+
+			// Check if any part of the path matches the pattern
+			pathParts := strings.Split(filepath.ToSlash(path), "/")
+			for i := range pathParts {
+				if matched, _ := filepath.Match(pattern.pattern, strings.Join(pathParts[i:], "/")); matched {
+					return true
+				}
+			}
 		}
 	}
 	return false
